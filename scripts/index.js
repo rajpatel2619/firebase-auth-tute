@@ -1,4 +1,36 @@
 const guideList = document.querySelector('.guides');
+const loggedOutLinks = document.querySelectorAll('.logged-out');
+const loggedInLinks = document.querySelectorAll('.logged-in');
+const accountDetails = document.querySelector('.account-details');
+//setup ui
+const setupUI = (user)=>{
+    if(user){
+        db.collection('users').doc(user.uid).get().then(doc =>{
+
+            const html=`
+            <div>Logged In as ${user.email}</div>
+            <div>${doc.data().bio}</div>
+            `;
+            accountDetails.innerHTML = html;
+        })
+        //toggle ui elements
+        loggedInLinks.forEach(item=>{
+            item.style.display = 'block'
+        });
+        loggedOutLinks.forEach(item=>{
+            item.style.display = 'none'
+        });
+    }else{
+        accountDetails.innerHTML = '';
+          //toggle ui elements
+          loggedInLinks.forEach(item=>{
+            item.style.display = 'none'
+        });
+        loggedOutLinks.forEach(item=>{
+            item.style.display = 'block'
+        });
+    }
+}
 //setup guides
 const setupGuides =(data)=>{
     if(data.length){
@@ -22,6 +54,8 @@ const setupGuides =(data)=>{
         }
 
 }
+
+
 
 
 // setup materialize components
