@@ -16,25 +16,31 @@
         <img src="img/logo.svg" style="width: 180px; margin-top: 10px;">
       </a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="logged-in" style="display:none">
+          <li class="logged-in" style="display: none;">
             <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
           </li>
-          <li class="logged-in" style="display:none">
+          <li class="logged-in" style="display: none;">
             <a href="#" class="grey-text" id="logout">Logout</a>
           </li>
-          <li class="logged-in" style="display:none">
+          <li class="admin" style="display: none;">
             <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Guide</a>
           </li>
-          <li class="logged-out" style="display:none">
+          <li class="logged-out" style="display: none;">
             <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
           </li>
-          <li class="logged-out" style="display:none">
+          <li class="logged-out" style="display: none;">
             <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
           </li>
         </span>
       </ul>
     </div>
   </nav>
+
+  <!-- ADMIN ACTIONS -->
+  <form class="center-align admin-actions admin" style="margin: 40px auto; max-width: 300px; display: none;">
+    <input type="email" placeholder="User email" id="admin-email" required />
+    <button class="btn-small yellow darken-2 z-depth-0">Make admin</button>
+  </form>
 
   <!-- SIGN UP MODAL -->
   <div id="modal-signup" class="modal">
@@ -54,6 +60,7 @@
           <label for="signup-bio">One Line Bio</label>
         </div>
         <button class="btn yellow darken-2 z-depth-0">Sign up</button>
+        <p class="error pink-text center-align"></p>
       </form>
     </div>
   </div>
@@ -72,6 +79,7 @@
           <label for="login-password">Your password</label>
         </div>
         <button class="btn yellow darken-2 z-depth-0">Login</button>
+        <p class="error pink-text center-align"></p>
       </form>
     </div>
   </div>
@@ -105,41 +113,33 @@
   <!-- GUIDE LIST -->
   <div class="container" style="margin-top: 40px;">
     <ul class="collapsible z-depth-0 guides" style="border: none;">
-    style="display:none"
+
     </ul>
   </div>
   
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-functions.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDpBBp4bCOQjque3wZ0OWR7zwSnoQ36F8c",
+        authDomain: "fir-auth-3cdda.firebaseapp.com",
+        databaseURL: "https://fir-auth-3cdda.firebaseio.com",
+        projectId: "fir-auth-3cdda",
+        appId: "1:575347473864:web:a2934de7a07eed229fd4fd"
+    };
+    firebase.initializeApp(config);
+    
+    // make auth and firestore references
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const functions = firebase.functions();
 
-
-
-
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyDpBBp4bCOQjque3wZ0OWR7zwSnoQ36F8c",
-    authDomain: "fir-auth-3cdda.firebaseapp.com",
-    databaseURL: "https://fir-auth-3cdda.firebaseio.com",
-    projectId: "fir-auth-3cdda",
-    // storageBucket: "fir-auth-3cdda.appspot.com",
-    // messagingSenderId: "575347473864",
-    appId: "1:575347473864:web:a2934de7a07eed229fd4fd"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  //make auth and firestore refrences
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-  //update firestore setting
-//   db.settings({timestampsInSnapshots:true});
-</script>
+    // update firestore settings
+    db.settings({ timestampsInSnapshots: true });
+  </script>
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="scripts/auth.js"></script>
